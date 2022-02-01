@@ -24,6 +24,9 @@ public class CharacterScript2D : MonoBehaviour
     private bool lPressed = false;
     int i = 0;
     private bool catchingUp = false;
+    private bool onWall = false;
+    public float wallHangMax = 10f;
+    private float wallHangTime = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +103,35 @@ public class CharacterScript2D : MonoBehaviour
         {
             DashFunc(-1);
             lPressed = false;
+        }
+        if (onWall)
+        {
+            rb.gravityScale = 0;
+            wallHangTime++;
+            if(wallHangTime > wallHangMax)
+            {
+                onWall = false;
+            }
+        }
+        else
+        {
+
+            rb.gravityScale = 10;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(rb.velocity.y >= 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            onWall = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collistion)
+    {
+        if (onWall)
+        {
+            onWall = false;
         }
     }
 }
