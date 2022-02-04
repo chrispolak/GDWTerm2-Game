@@ -23,6 +23,7 @@ public class CharacterScript2D : MonoBehaviour
     private float dashTimer;
     private float startTime;
     public float dashTimerEnd;
+    private int dashDir = 0;
     private bool rPressed = false;
     private bool lPressed = false;
     int i = 0;
@@ -44,8 +45,9 @@ public class CharacterScript2D : MonoBehaviour
     }
     void DashFunc(int direction)
     {
+        dashDir = direction;
         startTime = Time.time;
-        dashTarget = new Vector3(transform.position.x+dashDistance, transform.position.y, transform.position.z);
+        dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
         transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
         dashing = true;
         if(specDashes > 0)
@@ -81,7 +83,7 @@ public class CharacterScript2D : MonoBehaviour
         }
 
         //Right Movement
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && !dashing)
         {
             rb.AddForce(transform.right * acceleration, ForceMode2D.Impulse);
         }
@@ -97,7 +99,7 @@ public class CharacterScript2D : MonoBehaviour
         }
 
         //Left Movement
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && !dashing)
         {
             rb.AddForce(-transform.right * acceleration, ForceMode2D.Impulse);
         }
@@ -114,7 +116,7 @@ public class CharacterScript2D : MonoBehaviour
         }
 
         //Dash
-        if(rPressed || lPressed)
+        /*if(rPressed || lPressed)
         {
             if(dashTimer >= dashTimerEnd)
             {
@@ -132,7 +134,22 @@ public class CharacterScript2D : MonoBehaviour
         {
             DashFunc(-1);
             lPressed = false;
+        }*/
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector2 mouse = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+            var playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+            if (mouse.x < playerScreenPoint.x)
+            {
+                DashFunc(-1);
+            }
+            else
+            {
+                DashFunc(1);
+            }
         }
+
         if (onWall)
         {
             rb.gravityScale = 0;
@@ -156,13 +173,14 @@ public class CharacterScript2D : MonoBehaviour
             float fractionOfJourney = distCovered / dashDistance;
 
             // Set our position as a fraction of the distance between the markers.
-            transform.position = Vector3.Lerp(transform.position, dashTarget, fractionOfJourney);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(dashTarget.x, transform.position.y, transform.position.z), fractionOfJourney);
 
             lPressed = false;
             rPressed = false;
-            if (transform.position == dashTarget)
+            if (Mathf.Abs(transform.position.x - dashTarget.x)<=0.2)
             {
                 dashing = false;
+                rb.velocity = new Vector3(dashDir*50, 0);
             }
         }
     }
@@ -173,6 +191,7 @@ public class CharacterScript2D : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             onWall = true;
         }
+        dashing = false;
     }
     private void OnCollisionExit2D(Collision2D collistion)
     {
