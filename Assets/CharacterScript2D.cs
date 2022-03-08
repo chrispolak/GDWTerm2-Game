@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterScript2D : MonoBehaviour
 {
+    private Animator anim;
     public int specDashes = 3;
     public bool stopping = false;
     private float baseGrav;
@@ -40,12 +41,14 @@ public class CharacterScript2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         baseGrav = rb.gravityScale;
     }
     void DashFunc(int direction)
     {
         dashDir = direction;
+        anim.SetInteger("Direction", direction);
         startTime = Time.time;
         dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
         transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
@@ -58,7 +61,7 @@ public class CharacterScript2D : MonoBehaviour
         {
             NormalDash(direction);
         }
-        
+        anim.SetTrigger("Dash");
     }
     void NormalDash(int direction)
     {
@@ -81,60 +84,12 @@ public class CharacterScript2D : MonoBehaviour
             stopping = false;
             catchingUp = false;
         }
-
-        //Right Movement
-        if (Input.GetKey(KeyCode.D) && !dashing)
+        movement.x = Input.GetAxis("Horizontal");
+        if(movement.x != 0)
         {
-            rb.AddForce(transform.right * acceleration, ForceMode2D.Impulse);
+            anim.SetBool("Running", true);
+            Move();
         }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            rb.AddForce(-rb.velocity * brakingMult * rb.mass, ForceMode2D.Impulse);
-            if(!dashing)
-                rPressed = true;
-            else
-            {
-                rPressed = false;
-            }
-        }
-
-        //Left Movement
-        if (Input.GetKey(KeyCode.A) && !dashing)
-        {
-            rb.AddForce(-transform.right * acceleration, ForceMode2D.Impulse);
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            rb.AddForce(-rb.velocity * brakingMult * rb.mass, ForceMode2D.Impulse);
-            lPressed = true;
-        }
-
-        //Cap Speed
-        if(Mathf.Abs(rb.velocity.x) >= maxSpeed)
-        {
-            rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
-        }
-
-        //Dash
-        /*if(rPressed || lPressed)
-        {
-            if(dashTimer >= dashTimerEnd)
-            {
-                rPressed = false;
-                lPressed = false;
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.D) && rPressed)
-        {
-            DashFunc(1);
-            rPressed = false;
-        }
-        if (Input.GetKeyDown(KeyCode.A) && lPressed)
-        {
-            DashFunc(-1);
-            lPressed = false;
-        }*/
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -182,6 +137,26 @@ public class CharacterScript2D : MonoBehaviour
                 dashing = false;
                 rb.velocity = new Vector3(dashDir*50, 0);
             }
+        }
+    }
+
+    private void Move()
+    {
+        if(Mathf.Abs(rb.velocity.x) >= maxSpeed)
+        {
+            return;
+        }
+        if(movement.x > 0)
+        {
+            rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            anim.SetBool("Running", false);
+        }
+        if (movement.x < 0)
+        {
+            rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            anim.SetBool("Running", false);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

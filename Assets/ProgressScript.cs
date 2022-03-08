@@ -7,7 +7,8 @@ public enum PoliceState
 {
     Safe,
     Close,
-    Caught
+    Caught,
+    Escaped
 }
 public class ProgressScript : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ProgressScript : MonoBehaviour
     Color color1 = Color.blue;
     public float progressDifference = 0;
     public float policeSpeed = 5.0f;
+    public GameObject siren;
     public Light2D sirenLight;
     public Transform startMark;
     public Transform endMark;
@@ -23,6 +25,7 @@ public class ProgressScript : MonoBehaviour
     public Slider playerSlider;
     public Slider policeSlider;
     public PoliceState policeState = PoliceState.Safe;
+    public GameObject deathScreen, winScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,19 +35,21 @@ public class ProgressScript : MonoBehaviour
     {
         playerSlider.value = (playerTrans.position.x - startMark.position.x) / (endMark.position.x - startMark.position.x);
         policeSlider.value += 0.0001f * policeSpeed;
+        siren.transform.position = new Vector3(startMark.position.x + ((endMark.position.x - startMark.position.x) * policeSlider.value)-12,0,0);
     }
     void UpdatePoliceState()
     {
-        if(progressDifference < 0.1)
+        if (progressDifference <= 0)
         {
-            if(progressDifference <= 0)
-            {
-                policeState = PoliceState.Caught;
-            }
-            else
-            {
-                policeState = PoliceState.Close;
-            }
+            policeState = PoliceState.Caught;
+        }
+        else if (progressDifference < 0.2)
+        {
+            policeState = PoliceState.Close;
+        }
+        if (playerSlider.value >= 1)
+        {
+            policeState = PoliceState.Escaped;
         }
         else
         {
@@ -55,17 +60,22 @@ public class ProgressScript : MonoBehaviour
     void Update()
     {
         UpdateSliders();
-        progressDifference = playerSlider.value-policeSlider.value;
+        progressDifference = playerSlider.value - policeSlider.value;
         UpdatePoliceState();
-        print(policeState.ToString());
-        if(policeState == PoliceState.Close)
+        
+        if (progressDifference <= 0)
         {
-            float t = Mathf.PingPong(Time.time, duration) / duration;
-            sirenLight.color = Color.Lerp(color0, color1, t);
+            deathScreen.SetActive(true);
+            policeSlider.gameObject.SetActive(false);
+            playerSlider.gameObject.SetActive(false);
+            siren.SetActive(false);
         }
-        else
+        if (policeState == PoliceState.Escaped)
         {
-            sirenLight.color = new Color(0, 0, 0, 0);
+            winScreen.SetActive(true);
+            policeSlider.gameObject.SetActive(false);
+            playerSlider.gameObject.SetActive(false);
+            siren.SetActive(false);
         }
     }
 }
