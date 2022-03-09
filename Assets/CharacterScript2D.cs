@@ -11,13 +11,15 @@ public class CharacterScript2D : MonoBehaviour
     public bool dashing = false;
     public bool isGrounded = true;
     public float acceleration = 0.5f;
-    public float dashDistance = 10;
+    public Vector3 dashStartPos;
     public float dashSpeed = 20;
     public Vector3 dashTarget;
     public float brakingMult = 0.5f;
     public float jumpForce = 1f;
+    GameObject targetSprite;
     private Vector2 movement;
     private Rigidbody2D rb;
+    public GameObject dashTargSprite;
     private int stopCatchup = 0;
     public float maxSpeed = 10;
     private bool attacking = false;
@@ -45,32 +47,33 @@ public class CharacterScript2D : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         baseGrav = rb.gravityScale;
     }
-    void DashFunc(int direction)
+    void DashFunc(Vector3 location)
     {
-        dashDir = direction;
-        anim.SetInteger("Direction", direction);
+        dashStartPos = transform.position;
         startTime = Time.time;
-        dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
-        transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        //dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
         dashing = true;
+        //rb.position = location;
         if(specDashes > 0)
         {
-            SpecialDash(direction);
+            SpecialDash(location);
         }
         else
         {
-            NormalDash(direction);
+            NormalDash(location);
         }
         anim.SetTrigger("Dash");
     }
-    void NormalDash(int direction)
+    void NormalDash(Vector3 location)
     {
     }
-    void SpecialDash(int direction)
+    void SpecialDash(Vector3 location)
     {
         specDashes--;
         dashCharges[specDashes].SetActive(false);
-        rb.AddForce(new Vector2(direction * dashSpeed, 0));
+        dashing = true;
+        //rb.AddForce((this.transform.position - location).normalized);
         //SpecialDash
     }
     // Update is called once per frame
@@ -90,19 +93,58 @@ public class CharacterScript2D : MonoBehaviour
             anim.SetBool("Running", true);
             Move();
         }
-
         if (Input.GetMouseButtonDown(1))
         {
-            Vector2 mouse = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-            var playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
-            if (mouse.x < playerScreenPoint.x)
+            bool nearEnemy = false;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits = Physics.RaycastAll(ray);
+            foreach (RaycastHit hit in hits)
             {
-                DashFunc(-1);
+                if (hit.collider.gameObject.tag == "Targeter")
+                {
+                    foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                    {
+                        print(Vector3.Distance(hit.point, enemy.transform.position));
+                        if (Vector3.Distance(hit.point, enemy.transform.position) <= 10)
+                        {
+                            nearEnemy = true;
+                            dashTarget = enemy.transform.position;
+                        }
+                    }
+                    if (!nearEnemy)
+                        dashTarget = hit.point;
+                }
+                targetSprite = Instantiate(dashTargSprite, dashTarget, Quaternion.identity);
             }
-            else
+        }
+        if (Input.GetMouseButton(1))
+        {
+            bool nearEnemy = false;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits = Physics.RaycastAll(ray);
+            foreach (RaycastHit hit in hits)
             {
-                DashFunc(1);
+                if (hit.collider.gameObject.tag == "Targeter")
+                {
+                    foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                    {
+                        print(Vector2.Distance(hit.point, enemy.transform.position));
+                        if (Vector3.Distance(hit.point, enemy.transform.position) <= 2)
+                        {
+                            nearEnemy = true;
+                            dashTarget = enemy.transform.position;
+                        }
+                    }
+                    if (!nearEnemy)
+                        dashTarget = hit.point;
+                }
             }
+            targetSprite.transform.position = dashTarget;
+            
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            DashFunc(dashTarget);
         }
 
         if (onWall)
@@ -121,22 +163,14 @@ public class CharacterScript2D : MonoBehaviour
         }
         if (dashing)
         {
-            // Distance moved equals elapsed time times speed..
-            float distCovered = (Time.time - startTime) * dashSpeed;
-
-            // Fraction of journey completed equals current distance divided by total distance.
-            float fractionOfJourney = distCovered / dashDistance;
-
-            // Set our position as a fraction of the distance between the markers.
-            transform.position = Vector3.Lerp(transform.position, new Vector3(dashTarget.x, transform.position.y, transform.position.z), fractionOfJourney);
-
-            lPressed = false;
-            rPressed = false;
-            if (Mathf.Abs(transform.position.x - dashTarget.x)<=0.2)
+            if (Vector3.Distance(transform.position, dashTarget) <= 5 || rb.velocity.magnitude <= 3)
             {
                 dashing = false;
-                rb.velocity = new Vector3(dashDir*50, 0);
+                rb.velocity = new Vector2(0, 0);
+            
+                Destroy(targetSprite);
             }
+            rb.velocity = (dashTarget - transform.position).normalized * dashSpeed;
         }
     }
 
@@ -166,7 +200,6 @@ public class CharacterScript2D : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             onWall = true;
         }
-        dashing = false;
     }
     private void OnCollisionExit2D(Collision2D collistion)
     {
