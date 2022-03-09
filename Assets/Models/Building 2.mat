@@ -21,14 +21,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Building 2
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 8eff0d86af21a5f42b3ebef8a7c96eea, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -124,7 +123,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_b17070d9834d4c8983113df992e81017: {r: 0, g: 1, b: 0.9696944, a: 0}
+    - Color_78e19e6d97ab4b20a3f19d78a3193177: {r: 0, g: 1, b: 0.9525862, a: 0}
+    - Color_b17070d9834d4c8983113df992e81017: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 0}
     - _BaseColor: {r: 0.6273585, g: 0.9812113, b: 1, a: 1}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
