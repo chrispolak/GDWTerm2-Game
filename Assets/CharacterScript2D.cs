@@ -159,11 +159,12 @@ public class CharacterScript2D : MonoBehaviour
         else
         {
 
-            rb.gravityScale = 10;
+            rb.gravityScale = 5;
         }
         if (dashing)
         {
-            if (Vector3.Distance(transform.position, dashTarget) <= 5 || rb.velocity.magnitude <= 3)
+            
+            if (Vector3.Distance(transform.position, dashTarget) <= 5)
             {
                 dashing = false;
                 rb.velocity = new Vector2(0, 0);
@@ -176,14 +177,18 @@ public class CharacterScript2D : MonoBehaviour
 
     private void Move()
     {
+        if((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
         if(Mathf.Abs(rb.velocity.x) >= maxSpeed)
         {
             return;
         }
         if(movement.x > 0)
         {
-            rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
             anim.SetBool("Running", false);
         }
         if (movement.x < 0)

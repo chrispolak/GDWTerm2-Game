@@ -80,6 +80,7 @@ public class ProgressScript : MonoBehaviour
             policeSlider.gameObject.SetActive(false);
             playerSlider.gameObject.SetActive(false);
             siren.SetActive(false);
+            GameObject.Find("LevelStuff").GetComponent<GameManagement>().EndLevel();
         }
     }
 }
