@@ -12,6 +12,7 @@ public enum PoliceState
 }
 public class ProgressScript : MonoBehaviour
 {
+    public bool policeActive = true;
     float duration = 1.0f;
     Color color0 = Color.red;
     Color color1 = Color.blue;
@@ -61,7 +62,10 @@ public class ProgressScript : MonoBehaviour
     {
         UpdateSliders();
         progressDifference = playerSlider.value - policeSlider.value;
-        UpdatePoliceState();
+        if (policeActive)
+        {
+            UpdatePoliceState();
+        }
         
         if (progressDifference <= 0)
         {
