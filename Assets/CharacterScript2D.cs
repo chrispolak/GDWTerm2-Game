@@ -81,7 +81,7 @@ public class CharacterScript2D : MonoBehaviour
     {
         movement = new Vector2(0, 0);
         //Jump
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && rb.velocity.y == 0)
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             stopping = false;
@@ -146,29 +146,14 @@ public class CharacterScript2D : MonoBehaviour
         {
             DashFunc(dashTarget);
         }
-
-        if (onWall)
-        {
-            rb.gravityScale = 0;
-            wallHangTime++;
-            if(wallHangTime > wallHangMax)
-            {
-                onWall = false;
-            }
-        }
-        else
-        {
-
-            rb.gravityScale = 5;
-        }
         if (dashing)
         {
-            
+
             if (Vector3.Distance(transform.position, dashTarget) <= 5)
             {
                 dashing = false;
                 rb.velocity = new Vector2(0, 0);
-            
+
                 Destroy(targetSprite);
             }
             rb.velocity = (dashTarget - transform.position).normalized * dashSpeed;
@@ -200,17 +185,8 @@ public class CharacterScript2D : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(rb.velocity.y >= 0)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            onWall = true;
-        }
     }
     private void OnCollisionExit2D(Collision2D collistion)
     {
-        if (onWall)
-        {
-            onWall = false;
-        }
     }
 }
