@@ -121,11 +121,12 @@ MonoBehaviour:
   dashing: 0
   isGrounded: 1
   acceleration: 1
-  dashDistance: 20
+  dashStartPos: {x: 0, y: 0, z: 0}
   dashSpeed: 5
   dashTarget: {x: 0, y: 0, z: 0}
   brakingMult: 0.68
   jumpForce: 25
+  dashTargSprite: {fileID: 5268733758132283565, guid: dbbd2ca7f4170d143b2bd30e6e801b1b, type: 3}
   maxSpeed: 18
   dashTimerEnd: 20
   wallHangMax: 100
@@ -148,7 +149,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -278,8 +279,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516547506598431935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.256, y: 0, z: 0}
-  m_LocalScale: {x: 1.6172919, y: 1.8524, z: 1}
+  m_LocalPosition: {x: 0.04, y: 0.67, z: 0}
+  m_LocalScale: {x: 2.041831, y: 5.1473565, z: 1}
   m_Children: []
   m_Father: {fileID: 516547506517121556}
   m_RootOrder: 0
