@@ -31,9 +31,6 @@ public class CharacterScript2D : MonoBehaviour
     private bool lPressed = false;
     int i = 0;
     private bool catchingUp = false;
-    private bool onWall = false;
-    public float wallHangMax = 10f;
-    private float wallHangTime = 0.0f;
     public List<GameObject> dashCharges;
     public void RegenSpecDash()
     {
@@ -45,7 +42,6 @@ public class CharacterScript2D : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        baseGrav = rb.gravityScale;
     }
     void DashFunc(Vector3 location)
     {
@@ -81,7 +77,7 @@ public class CharacterScript2D : MonoBehaviour
     {
         movement = new Vector2(0, 0);
         //Jump
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded && rb.velocity.y == 0)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && Mathf.Abs(rb.velocity.y) <= 1)
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             stopping = false;
