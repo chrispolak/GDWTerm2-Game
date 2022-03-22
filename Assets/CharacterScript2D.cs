@@ -49,26 +49,21 @@ public class CharacterScript2D : MonoBehaviour
         startTime = Time.time;
         //dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
         //transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-        dashing = true;
         //rb.position = location;
         if(specDashes > 0)
         {
             SpecialDash(location);
         }
-        else
-        {
-            NormalDash(location);
-        }
-        anim.SetTrigger("Dash");
     }
     void NormalDash(Vector3 location)
     {
     }
     void SpecialDash(Vector3 location)
     {
+        dashing = true;
+        anim.SetTrigger("Dash");
         specDashes--;
         dashCharges[specDashes].SetActive(false);
-        dashing = true;
         //rb.AddForce((this.transform.position - location).normalized);
         //SpecialDash
     }
