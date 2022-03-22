@@ -939,8 +939,8 @@ Transform:
   m_LocalPosition: {x: 148.55208, y: 52.837402, z: -31.310387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7601458404868483529}
   - {fileID: 4191612040119972406}
+  - {fileID: 7601458404868483529}
   - {fileID: 4191612039715082619}
   - {fileID: 4191612040518285237}
   - {fileID: 4191612040541307120}
@@ -7549,14 +7549,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1851500786608842613, guid: 57f94f17e6a2e584388989cfffa56eeb, type: 3}
   m_PrefabInstance: {fileID: 2565436426906380165}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4191612039468908430 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1851500785537472523, guid: 57f94f17e6a2e584388989cfffa56eeb, type: 3}
-  m_PrefabInstance: {fileID: 2565436426906380165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4191612040801994138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1851500786888663583, guid: 57f94f17e6a2e584388989cfffa56eeb, type: 3}
+  m_PrefabInstance: {fileID: 2565436426906380165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4191612039468908430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1851500785537472523, guid: 57f94f17e6a2e584388989cfffa56eeb, type: 3}
   m_PrefabInstance: {fileID: 2565436426906380165}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2602806834295946663
@@ -18798,6 +18798,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[2441].second.m_TileSpriteIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2176540405460441279, guid: c2aa8bf3076010a4f95c578ef65453ba, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2176540405678772735, guid: c2aa8bf3076010a4f95c578ef65453ba, type: 3}
       propertyPath: m_Size.x
       value: 24
@@ -18816,7 +18820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2176540406197702545, guid: c2aa8bf3076010a4f95c578ef65453ba, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2176540406197702545, guid: c2aa8bf3076010a4f95c578ef65453ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21218,7 +21222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6005082622257043068, guid: 7a6e7b654bf74774fb0a2cb6286e31d8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6005082622257043068, guid: 7a6e7b654bf74774fb0a2cb6286e31d8, type: 3}
       propertyPath: m_AnchorMax.x
