@@ -10,7 +10,7 @@ public class TriggerDialogue : EventClass
     TextBox textScript;
     public void Awake()
     {
-        textScript = textBox.GetComponent<textBox>();
+        textScript = textBox.GetComponent<TextBox>();
     }
     public override void RunEvent()
     {
