@@ -122,14 +122,13 @@ MonoBehaviour:
   isGrounded: 1
   acceleration: 1
   dashStartPos: {x: 0, y: 0, z: 0}
-  dashSpeed: 5
+  dashSpeed: 20
   dashTarget: {x: 0, y: 0, z: 0}
   brakingMult: 0.68
   jumpForce: 25
   dashTargSprite: {fileID: 5268733758132283565, guid: dbbd2ca7f4170d143b2bd30e6e801b1b, type: 3}
   maxSpeed: 18
   dashTimerEnd: 20
-  wallHangMax: 100
   dashCharges:
   - {fileID: 0}
   - {fileID: 0}
