@@ -7,7 +7,11 @@ public class TriggerDialogue : EventClass
 {
     public GameObject textBox;
     public List<string> text = new List<string>();
-    public TextBox textScript;
+    TextBox textScript;
+    public void Awake()
+    {
+        textScript = textBox.GetComponent<textBox>();
+    }
     public override void RunEvent()
     {
         if (!textBox.active)
