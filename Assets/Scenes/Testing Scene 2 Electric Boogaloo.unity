@@ -123,6 +123,22 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &68655698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 562933545819857430, guid: 5b88033c95c74524fb29de05cc916835, type: 3}
+  m_PrefabInstance: {fileID: 190577166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &68655699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9189949239651634317, guid: 5b88033c95c74524fb29de05cc916835, type: 3}
+  m_PrefabInstance: {fileID: 190577166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68655698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3234a7553fa6e0d4aae265e04214ba6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &84961363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +268,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 562933545819857430, guid: 5b88033c95c74524fb29de05cc916835, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3187250091546458700, guid: 5b88033c95c74524fb29de05cc916835, type: 3}
       propertyPath: m_Name
       value: LevelStuff
@@ -310,3 +330,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b88033c95c74524fb29de05cc916835, type: 3}
+--- !u!1001 &7824874438833889347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7824874438592543465, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_Name
+      value: TextTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -114.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -58.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543470, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7824874438592543471, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: textBox
+      value: 
+      objectReference: {fileID: 68655698}
+    - target: {fileID: 7824874438592543471, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
+      propertyPath: textScript
+      value: 
+      objectReference: {fileID: 68655699}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0137b94fbcfc31478fa2a0047e10002, type: 3}
