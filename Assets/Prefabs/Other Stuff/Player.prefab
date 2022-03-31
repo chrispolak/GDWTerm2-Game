@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 516547506517121563}
   - component: {fileID: 516547506517121559}
   - component: {fileID: 516547506517121560}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -137,6 +137,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   attackRange: 4
+  stunTimer: 1
+  stunned: 0
 --- !u!50 &516547506517121559
 Rigidbody2D:
   serializedVersion: 4
@@ -267,7 +269,7 @@ GameObject:
   - component: {fileID: 516547506598431934}
   - component: {fileID: 516547506598431928}
   - component: {fileID: 516547506598431929}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attacker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +340,7 @@ GameObject:
   - component: {fileID: 516547506610541619}
   - component: {fileID: 516547506610541773}
   - component: {fileID: 516547506610541618}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DashCanceller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4225723098157526511}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackCaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
