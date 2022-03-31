@@ -36,7 +36,7 @@ public class ProgressScript : MonoBehaviour
     {
         playerSlider.value = (playerTrans.position.x - startMark.position.x) / (endMark.position.x - startMark.position.x);
         policeSlider.value += 0.0001f * policeSpeed;
-        siren.transform.position = new Vector3(startMark.position.x + ((endMark.position.x - startMark.position.x) * policeSlider.value)-12,0,0);
+        siren.transform.position = new Vector3(startMark.position.x + ((endMark.position.x - startMark.position.x) * policeSlider.value) - 12, 0, 0);
     }
     void UpdatePoliceState()
     {
@@ -57,6 +57,11 @@ public class ProgressScript : MonoBehaviour
             policeState = PoliceState.Safe;
         }
     }
+    public void ResetLevel()
+    {
+        playerTrans.position = startMark.position;
+        policeSlider.value = 0;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -69,7 +74,7 @@ public class ProgressScript : MonoBehaviour
         
         if (progressDifference <= 0)
         {
-            deathScreen.SetActive(true);
+            
             policeSlider.gameObject.SetActive(false);
             playerSlider.gameObject.SetActive(false);
             siren.SetActive(false);

@@ -29,9 +29,21 @@ public class CharacterScript2D : MonoBehaviour
     private int dashDir = 0;
     private bool rPressed = false;
     private bool lPressed = false;
+    public GameObject HUD;
     int i = 0;
+    public Transform caster;
     private bool catchingUp = false;
     public List<GameObject> dashCharges;
+    public float attackRange = 4;
+    public int stunTimer = 1;
+    public bool stunned = false;
+    private IEnumerator Stun()
+    {
+        stunned = true;   
+        yield return new WaitForSeconds(stunTimer);
+        stunned = false;
+
+    }
     public void RegenSpecDash()
     {
         dashCharges[specDashes].SetActive(true);
@@ -42,11 +54,13 @@ public class CharacterScript2D : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        HUD = GameObject.Find("HUD");
     }
     void DashFunc(Vector3 location)
     {
         dashStartPos = transform.position;
         startTime = Time.time;
+        dashing = true;
         //dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
         //transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
         //rb.position = location;
@@ -136,6 +150,7 @@ public class CharacterScript2D : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             DashFunc(dashTarget);
+            Destroy(targetSprite);
         }
         if (dashing)
         {
@@ -149,33 +164,61 @@ public class CharacterScript2D : MonoBehaviour
             }
             rb.velocity = (dashTarget - transform.position).normalized * dashSpeed;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Attack();
+        }
+        if(rb.velocity.magnitude == 0)
+        {
+            dashing = false;
+        }
+    }
+    void Attack()
+    {
+        attacking = true;
+        RaycastHit2D hit = Physics2D.Raycast(caster.position, Vector2.right);
+        print(hit.transform.gameObject);
+        if (hit.transform.gameObject.tag == "Enemy" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= attackRange)
+        {
+            print("Attack");
+            Destroy(hit.transform.gameObject);
+        }
     }
 
     private void Move()
     {
-        if((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
+        if (!stunned)
         {
-            rb.velocity = new Vector2(0, 0);
-        }
-        if(Mathf.Abs(rb.velocity.x) >= maxSpeed)
-        {
-            return;
-        }
-        if(movement.x > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
-            anim.SetBool("Running", false);
-        }
-        if (movement.x < 0)
-        {
-            rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            anim.SetBool("Running", false);
+
+            if ((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
+            {
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Mathf.Abs(rb.velocity.x) >= maxSpeed)
+            {
+                return;
+            }
+            if (movement.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
+                anim.SetBool("Running", false);
+            }
+            if (movement.x < 0)
+            {
+                rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                anim.SetBool("Running", false);
+            }
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.tag == "Projectile")
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(Stun());
+        }
     }
     private void OnCollisionExit2D(Collision2D collistion)
     {
