@@ -37,6 +37,7 @@ public class CharacterScript2D : MonoBehaviour
     public float attackRange = 4;
     public int stunTimer = 1;
     public bool stunned = false;
+
     private IEnumerator Stun()
     {
         stunned = true;   
