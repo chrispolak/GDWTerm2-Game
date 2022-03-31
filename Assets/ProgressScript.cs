@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Experimental.Rendering.Universal; 
+ 
 public enum PoliceState
 {
     Safe,
@@ -19,7 +19,7 @@ public class ProgressScript : MonoBehaviour
     public float progressDifference = 0;
     public float policeSpeed = 5.0f;
     public GameObject siren;
-    public Light2D sirenLight;
+    public UnityEngine.Rendering.Universal.Light2D sirenLight;
     public Transform startMark;
     public Transform endMark;
     public Transform playerTrans;
