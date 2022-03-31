@@ -35,6 +35,15 @@ public class CharacterScript2D : MonoBehaviour
     private bool catchingUp = false;
     public List<GameObject> dashCharges;
     public float attackRange = 4;
+    public int stunTimer = 1;
+    public bool stunned = false;
+    private IEnumerator Stun()
+    {
+        stunned = true;   
+        yield return new WaitForSeconds(stunTimer);
+        stunned = false;
+
+    }
     public void RegenSpecDash()
     {
         dashCharges[specDashes].SetActive(true);
@@ -178,37 +187,37 @@ public class CharacterScript2D : MonoBehaviour
 
     private void Move()
     {
-        if((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
+        if (!stunned)
         {
-            rb.velocity = new Vector2(0, 0);
+
+            if ((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
+            {
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Mathf.Abs(rb.velocity.x) >= maxSpeed)
+            {
+                return;
+            }
+            if (movement.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
+                anim.SetBool("Running", false);
+            }
+            if (movement.x < 0)
+            {
+                rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                anim.SetBool("Running", false);
+            }
         }
-        if(Mathf.Abs(rb.velocity.x) >= maxSpeed)
-        {
-            return;
-        }
-        if(movement.x > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
-            anim.SetBool("Running", false);
-        }
-        if (movement.x < 0)
-        {
-            rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            anim.SetBool("Running", false);
-        }
-    }
-    public void Die()
-    {
-        HUD.GetComponent<ProgressScript>().ResetLevel();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Projectile")
         {
             Destroy(collision.gameObject);
-            Die();
+            StartCoroutine(Stun());
         }
     }
     private void OnCollisionExit2D(Collision2D collistion)
