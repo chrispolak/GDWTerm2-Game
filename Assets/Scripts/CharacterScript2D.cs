@@ -32,10 +32,11 @@ public class CharacterScript2D : MonoBehaviour
     public GameObject HUD;
     int i = 0;
     public Transform caster;
+    private bool onWall = false;
     private bool catchingUp = false;
     public List<GameObject> dashCharges;
     public float attackRange = 4;
-    public int stunTimer = 1;
+    public float stunTimer = 1;
     public bool stunned = false;
 
     private IEnumerator Stun()
@@ -182,13 +183,15 @@ public class CharacterScript2D : MonoBehaviour
         if (hit.transform.gameObject.tag == "Enemy" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= attackRange)
         {
             print("Attack");
+            dashCharges[specDashes].SetActive(true);
+            specDashes++;
             Destroy(hit.transform.gameObject);
         }
     }
 
     private void Move()
     {
-        if (!stunned)
+        if (stunned == false && onWall == false)
         {
 
             if ((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
@@ -219,6 +222,18 @@ public class CharacterScript2D : MonoBehaviour
         {
             Destroy(collision.gameObject);
             StartCoroutine(Stun());
+        }
+        if (collision.contacts.Length > 0)
+        {
+            ContactPoint2D contact = collision.contacts[0];
+            if (Vector3.Dot(contact.normal, Vector3.up) < 0.5 && rb.velocity.y != 0)
+            {
+                onWall = true;
+            }
+            else
+            {
+                onWall = false;
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collistion)
