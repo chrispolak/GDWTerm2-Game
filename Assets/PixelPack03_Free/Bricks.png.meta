@@ -102,6 +102,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -724,6 +725,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Bricks_8: 21300016
+      Bricks_22: 21300044
+      Bricks_15: 21300030
+      Bricks_3: 21300006
+      Bricks_13: 21300026
+      Bricks_5: 21300010
+      Bricks_7: 21300014
+      Bricks_18: 21300036
+      Bricks_0: 21300000
+      Bricks_9: 21300018
+      Bricks_19: 21300038
+      Bricks_17: 21300034
+      Bricks_4: 21300008
+      Bricks_6: 21300012
+      Bricks_1: 21300002
+      Bricks_14: 21300028
+      Bricks_24: 21300048
+      Bricks_21: 21300042
+      Bricks_10: 21300020
+      Bricks_16: 21300032
+      Bricks_23: 21300046
+      Bricks_20: 21300040
+      Bricks_11: 21300022
+      Bricks_12: 21300024
+      Bricks_25: 21300050
+      Bricks_2: 21300004
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
