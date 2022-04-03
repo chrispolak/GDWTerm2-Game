@@ -7,6 +7,7 @@ public class ButtonClass : MonoBehaviour
 {
     public bool selected = false;
     public Image buttonImage;
+    bool isAnyButton = false;
     public void switchToButton()
     {
         selected = true;
@@ -26,7 +27,7 @@ public class ButtonClass : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && selected)
+        if (Input.GetKeyDown(KeyCode.Return) && selected || isAnyButton && Input.anyKey)
         {
             GetComponent<Button>().onClick.Invoke();
         }

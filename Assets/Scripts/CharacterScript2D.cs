@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CharacterScript2D : MonoBehaviour
 {
+    public int facing = 1;
     private Animator anim;
     public int specDashes = 3;
     public bool stopping = false;
     private float baseGrav;
     public bool dashing = false;
+    public TrailRenderer trail;
     public bool isGrounded = true;
     public float acceleration = 0.5f;
     public Vector3 dashStartPos;
@@ -38,6 +40,7 @@ public class CharacterScript2D : MonoBehaviour
     public float attackRange = 4;
     public float stunTimer = 1;
     public bool stunned = false;
+    private bool loop = false;
 
     private IEnumerator Stun()
     {
@@ -61,12 +64,24 @@ public class CharacterScript2D : MonoBehaviour
     void DashFunc(Vector3 location)
     {
         dashStartPos = transform.position;
+        if(location.x <= transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            facing = -1;
+        }
+        if (location.x > transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            facing = 1;
+        }
         startTime = Time.time;
         dashing = true;
+        trail.enabled = true;
+        anim.SetTrigger("Attack");
         //dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
         //transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
         //rb.position = location;
-        if(specDashes > 0)
+        if (specDashes > 0)
         {
             SpecialDash(location);
         }
@@ -77,7 +92,8 @@ public class CharacterScript2D : MonoBehaviour
     void SpecialDash(Vector3 location)
     {
         dashing = true;
-        anim.SetTrigger("Dash");
+        trail.enabled = true;
+        anim.SetTrigger("Attack");
         specDashes--;
         dashCharges[specDashes].SetActive(false);
         //rb.AddForce((this.transform.position - location).normalized);
@@ -95,10 +111,14 @@ public class CharacterScript2D : MonoBehaviour
             catchingUp = false;
         }
         movement.x = Input.GetAxis("Horizontal");
-        if(movement.x != 0)
+        if (movement.x != 0)
         {
             anim.SetBool("Running", true);
             Move();
+        }
+        if(movement.x == 0)
+        {
+            anim.SetBool("Running", false);
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -156,10 +176,11 @@ public class CharacterScript2D : MonoBehaviour
         }
         if (dashing)
         {
-
+            Attack();
             if (Vector3.Distance(transform.position, dashTarget) <= 5)
             {
                 dashing = false;
+                trail.enabled = false;
                 rb.velocity = new Vector2(0, 0);
 
                 Destroy(targetSprite);
@@ -174,18 +195,35 @@ public class CharacterScript2D : MonoBehaviour
         {
             dashing = false;
         }
+
+        if (!dashing && (movement.x == 0))
+        {
+            anim.SetBool("Running", false);
+        }
     }
     void Attack()
     {
         attacking = true;
-        RaycastHit2D hit = Physics2D.Raycast(caster.position, Vector2.right);
+        RaycastHit2D hit;
+        anim.SetTrigger("Attack");
+        if(facing == 1)
+        {
+             hit = Physics2D.Raycast(caster.position, Vector2.right);
+        }
+        else
+        {
+             hit = Physics2D.Raycast(caster.position, Vector2.left);
+            Debug.DrawRay(caster.position, Vector2.left, Color.green);
+            print("a");
+        }
+        hit = Physics2D.Raycast(caster.position, Vector2.right);
         print(hit.transform.gameObject);
         if (hit.transform.gameObject.tag == "Enemy" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= attackRange)
         {
+            Destroy(hit.transform.gameObject);
             print("Attack");
             dashCharges[specDashes].SetActive(true);
             specDashes++;
-            Destroy(hit.transform.gameObject);
         }
     }
 
@@ -193,26 +231,17 @@ public class CharacterScript2D : MonoBehaviour
     {
         if (stunned == false && onWall == false)
         {
-
-            if ((rb.velocity.x >= 0 && movement.x <= 0) || (rb.velocity.x <= 0 && movement.x >= 0))
-            {
-                rb.velocity = new Vector2(0, 0);
-            }
-            if (Mathf.Abs(rb.velocity.x) >= maxSpeed)
-            {
-                return;
-            }
             if (movement.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
-                anim.SetBool("Running", false);
+                facing = 1;
             }
-            if (movement.x < 0)
+            else if (movement.x < 0)
             {
                 rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-                anim.SetBool("Running", false);
+                facing = -1;
             }
         }
     }

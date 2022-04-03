@@ -50,7 +50,7 @@ public class Enemy : PersonScript
                 MoveToPlayer();
             }
         }
-        else if (shootTimer >= shootTime)
+        else if (shootTimer >= shootTime && canShoot)
         {
             print(shootTimer);
             shootTimer = 0;
