@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scenes/Menu/MainMenu.unity
     guid: 8a124a513a9503c4393914a7f92764c9
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Levels/Pre-Lvl1Cutscene.unity
+    guid: 9ae8c7bea5ec5f2429de2dbb3172119b
+  - enabled: 1
+    path: Assets/Scenes/Game Scenes/Levels/Level1.unity
+    guid: fedf93c9746560f419e9fa7ecf4726d6
   m_configObjects: {}
