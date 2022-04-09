@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterScript2D : MonoBehaviour
 {
+    public bool hasWeapon = true;
     public int facing = 1;
     private Animator anim;
     public int specDashes = 3;
@@ -203,27 +204,30 @@ public class CharacterScript2D : MonoBehaviour
     }
     void Attack()
     {
-        attacking = true;
-        RaycastHit2D hit;
-        anim.SetTrigger("Attack");
-        if(facing == 1)
+        if (hasWeapon)
         {
-             hit = Physics2D.Raycast(caster.position, Vector2.right);
-        }
-        else
-        {
-             hit = Physics2D.Raycast(caster.position, Vector2.left);
-            Debug.DrawRay(caster.position, Vector2.left, Color.green);
-            print("a");
-        }
-        hit = Physics2D.Raycast(caster.position, Vector2.right);
-        print(hit.transform.gameObject);
-        if (hit.transform.gameObject.tag == "Enemy" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= attackRange)
-        {
-            Destroy(hit.transform.gameObject);
-            print("Attack");
-            dashCharges[specDashes].SetActive(true);
-            specDashes++;
+            attacking = true;
+            RaycastHit2D hit;
+            anim.SetTrigger("Attack");
+            if (facing == 1)
+            {
+                hit = Physics2D.Raycast(caster.position, Vector2.right);
+            }
+            else
+            {
+                hit = Physics2D.Raycast(caster.position, Vector2.left);
+                Debug.DrawRay(caster.position, Vector2.left, Color.green);
+                print("a");
+            }
+            hit = Physics2D.Raycast(caster.position, Vector2.right);
+            print(hit.transform.gameObject);
+            if (hit.transform.gameObject.tag == "Enemy" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= attackRange)
+            {
+                Destroy(hit.transform.gameObject);
+                print("Attack");
+                dashCharges[specDashes].SetActive(true);
+                specDashes++;
+            }
         }
     }
 

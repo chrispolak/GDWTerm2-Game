@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManagement : MonoBehaviour
 {
+    public string nextLevel;
     string saveDirectory;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,8 @@ public class GameManagement : MonoBehaviour
     {
         string[] levelText = File.ReadAllLines(saveDirectory + "\\LevelCompletion");
         levelText[levelNumber - 1] = "1";
-        System.IO.File.WriteAllLines(saveDirectory + "\\LevelCompletion", levelText);
+        System.IO.File.WriteAllLines(saveDirectory + "\\LevelCompletion", levelText); 
+        SceneManager.LoadScene(nextLevel, LoadSceneMode.Single);
     }
     public void UnlockUnlockable(string unlockable)
     {

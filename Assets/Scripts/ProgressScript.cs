@@ -87,5 +87,9 @@ public class ProgressScript : MonoBehaviour
             siren.SetActive(false);
             GameObject.Find("LevelStuff").GetComponent<GameManagement>().EndLevel();
         }
+        else if (policeState == PoliceState.Caught)
+        {
+            ResetLevel();
+        }
     }
 }
