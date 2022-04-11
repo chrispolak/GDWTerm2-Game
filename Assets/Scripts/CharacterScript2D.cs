@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CharacterScript2D : MonoBehaviour
 {
+    public AudioSource audio;
+    public AudioClip running;
+    public AudioClip attack;
+    public AudioClip jump;
+    public AudioClip dashSound;
     public bool hasWeapon = true;
     public int facing = 1;
     private Animator anim;
@@ -110,6 +115,7 @@ public class CharacterScript2D : MonoBehaviour
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             stopping = false;
             catchingUp = false;
+            audio.PlayOneShot(jump);
         }
         movement.x = Input.GetAxis("Horizontal");
         if (movement.x != 0)
@@ -172,6 +178,7 @@ public class CharacterScript2D : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(1))
         {
+            audio.PlayOneShot(dashSound);
             DashFunc(dashTarget);
             Destroy(targetSprite);
         }
@@ -188,8 +195,9 @@ public class CharacterScript2D : MonoBehaviour
             }
             rb.velocity = (dashTarget - transform.position).normalized * dashSpeed;
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
+            audio.PlayOneShot(attack);
             Attack();
         }
         if(rb.velocity.magnitude == 0)
@@ -233,17 +241,17 @@ public class CharacterScript2D : MonoBehaviour
 
     private void Move()
     {
-        if (stunned == false && onWall == false)
+        if (stunned == false)
         {
             if (movement.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
-                rb.AddForce(Vector2.right * acceleration, ForceMode2D.Impulse);
+                rb.velocity = new Vector2(acceleration, rb.velocity.y);
                 facing = 1;
             }
             else if (movement.x < 0)
             {
-                rb.AddForce(Vector2.left * acceleration, ForceMode2D.Impulse);
+                rb.velocity = new Vector2(-acceleration, rb.velocity.y);
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 facing = -1;
             }

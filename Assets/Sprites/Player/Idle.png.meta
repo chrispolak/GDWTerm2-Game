@@ -107,13 +107,13 @@ TextureImporter:
       name: Idle_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 25
         y: 0
-        width: 144
-        height: 144
+        width: 43
+        height: 117
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 45, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -128,13 +128,13 @@ TextureImporter:
       name: Idle_1
       rect:
         serializedVersion: 2
-        x: 144
+        x: 169
         y: 0
-        width: 144
-        height: 144
+        width: 43
+        height: 118
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 46, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -149,13 +149,13 @@ TextureImporter:
       name: Idle_2
       rect:
         serializedVersion: 2
-        x: 288
+        x: 313
         y: 0
-        width: 144
-        height: 144
+        width: 43
+        height: 119
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 46, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -170,13 +170,13 @@ TextureImporter:
       name: Idle_3
       rect:
         serializedVersion: 2
-        x: 432
+        x: 457
         y: 0
-        width: 144
-        height: 144
+        width: 43
+        height: 118
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 48, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -191,13 +191,13 @@ TextureImporter:
       name: Idle_4
       rect:
         serializedVersion: 2
-        x: 576
+        x: 601
         y: 0
-        width: 144
-        height: 144
+        width: 43
+        height: 117
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 48, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
