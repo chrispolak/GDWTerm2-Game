@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterScript2D : MonoBehaviour
 {
+
     public AudioSource audio;
     public AudioClip running;
     public AudioClip attack;

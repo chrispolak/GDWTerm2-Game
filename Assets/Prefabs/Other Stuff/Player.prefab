@@ -101,12 +101,12 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 516547506517121561}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cbeca39c501475449981560efb3bc43b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2.89}
+  m_Offset: {x: 0, y: 0.01}
+  m_Size: {x: 1, y: 2.43}
   m_Direction: 0
 --- !u!114 &516547506517121563
 MonoBehaviour:
@@ -132,7 +132,7 @@ MonoBehaviour:
   dashing: 0
   trail: {fileID: 516547506517121560}
   isGrounded: 1
-  acceleration: 1
+  acceleration: 22
   dashStartPos: {x: 0, y: 0, z: 0}
   dashSpeed: 200
   dashTarget: {x: 0, y: 0, z: 0}
