@@ -68,3 +68,10 @@ Logs/shadercompiler-UnityShaderCompiler.exe1.log
 Logs/AssetImportWorker2.log
 
 *.log
+Logs/AssetImportWorker0-prev.log
+UserSettings/Layouts/default-2021.dwlt
+UserSettings/EditorUserSettings.asset
+Logs/AssetImportWorker0.log
+Logs/shadercompiler-AssetImportWorker0.log
+Logs/shadercompiler-UnityShaderCompiler.exe0.log
+ProjectSettings/ProjectSettings.asset
