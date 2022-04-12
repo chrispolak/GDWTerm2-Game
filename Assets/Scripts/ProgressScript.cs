@@ -44,19 +44,21 @@ public class ProgressScript : MonoBehaviour
         if (progressDifference <= 0)
         {
             policeState = PoliceState.Caught;
+            Debug.Log("yolo");
         }
         else if (progressDifference < 0.2)
         {
             policeState = PoliceState.Close;
         }
-        if (playerSlider.value >= 1)
-        {
-            policeState = PoliceState.Escaped;
-        }
         else
         {
             policeState = PoliceState.Safe;
         }
+        if (playerSlider.value >= 1)
+        {
+            policeState = PoliceState.Escaped;
+        }
+        
     }
     public void ResetLevel()
     {

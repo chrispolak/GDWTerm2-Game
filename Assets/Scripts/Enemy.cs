@@ -14,6 +14,8 @@ public class Enemy : PersonScript
     public float speed = 5;
     int shootTimer = 0;
     int shootTime = 400;
+    int direction = 1;
+    public bool melee;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,7 +39,18 @@ public class Enemy : PersonScript
     }
     public void MoveToPlayer()
     {
-        rb.velocity = speed * Aim();
+        rb.velocity = new Vector2(speed * Aim().x, 0);
+        if (Aim().x < 0)
+        {
+
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        direction = (int)Aim().normalized.x;
     }
     // Update is called once per frame
     void Update()
@@ -55,6 +68,25 @@ public class Enemy : PersonScript
             print(shootTimer);
             shootTimer = 0;
             Shoot();
+        }
+        else if (shootTimer >= shootTime && melee)
+        {
+            RaycastHit2D hit;
+            if (direction == 1)
+            {
+                hit = Physics2D.Raycast(shootPoint.position, Vector2.right);
+            }
+            else
+            {
+                hit = Physics2D.Raycast(shootPoint.position, Vector2.left);
+                Debug.DrawRay(shootPoint.position, Vector2.left, Color.green);
+                print("a");
+            }
+            hit = Physics2D.Raycast(shootPoint.position, Vector2.right);
+            if (hit.transform.gameObject.tag == "Player" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= range)
+            {
+                player.gameObject.GetComponent<CharacterScript2D>().stunned = true;
+            }
         }
         else
         {
