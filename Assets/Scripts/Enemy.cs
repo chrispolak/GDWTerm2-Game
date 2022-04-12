@@ -16,14 +16,18 @@ public class Enemy : PersonScript
     int shootTime = 400;
     int direction = 1;
     public bool melee;
+    private Animator anim;
     void Awake()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").transform;
         if (canShoot)
         {
             Shoot();
         }
+
+
     }
     public Vector3 Aim()
     {
@@ -35,7 +39,8 @@ public class Enemy : PersonScript
     public void Shoot()
     {
         GameObject firedProjectile = Instantiate(projectile, shootPoint.position, Quaternion.identity);
-        firedProjectile.GetComponent<Rigidbody2D>().velocity = Aim()*10;
+        firedProjectile.GetComponent<Rigidbody2D>().velocity = Aim() * 10;
+        
     }
     public void MoveToPlayer()
     {
@@ -68,6 +73,9 @@ public class Enemy : PersonScript
             print(shootTimer);
             shootTimer = 0;
             Shoot();
+            StartCoroutine(PlayAnim());
+
+
         }
         else if (shootTimer >= shootTime && melee)
         {
@@ -91,6 +99,16 @@ public class Enemy : PersonScript
         else
         {
             shootTimer++;
+            
+
         }
+
+        IEnumerator PlayAnim()
+        {
+            anim.SetInteger("Shoot", 1);
+            yield return new WaitForSeconds(1);
+            anim.SetInteger("Shoot", 0);
+        }
+
     }
 }

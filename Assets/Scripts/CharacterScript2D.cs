@@ -163,7 +163,7 @@ public class CharacterScript2D : MonoBehaviour
                 {
                     foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
                     {
-                        print(Vector2.Distance(hit.point, enemy.transform.position));
+                        //print(Vector2.Distance(hit.point, enemy.transform.position));
                         if (Vector3.Distance(hit.point, enemy.transform.position) <= 2)
                         {
                             nearEnemy = true;
