@@ -134,12 +134,12 @@ MonoBehaviour:
   isGrounded: 1
   acceleration: 22
   dashStartPos: {x: 0, y: 0, z: 0}
-  dashSpeed: 200
+  dashSpeed: 30
   dashTarget: {x: 0, y: 0, z: 0}
   brakingMult: 0.68
   jumpForce: 15
   dashTargSprite: {fileID: 0}
-  maxSpeed: 30
+  maxSpeed: 10
   dashTimerEnd: 20
   HUD: {fileID: 0}
   caster: {fileID: 4225723098157526511}

@@ -1356,6 +1356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87116c1d49dcf6f489fc22c74e96adc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: {fileID: 0}
   policeActive: 1
   progressDifference: 0
   policeSpeed: 1
