@@ -12,8 +12,8 @@ public class Enemy : PersonScript
     public bool moves = false;
     public Rigidbody2D rb;
     public float speed = 5;
-    int shootTimer = 0;
-    int shootTime = 400;
+    public int shootTimer = 0;
+    public int shootTime = 400;
     int direction = 1;
     public bool melee;
     private Animator anim;
@@ -44,7 +44,7 @@ public class Enemy : PersonScript
     }
     public void MoveToPlayer()
     {
-        rb.velocity = new Vector2(speed * Aim().x, 0);
+        rb.velocity = new Vector2(speed * Aim().x, rb.velocity.y);
         if (Aim().x < 0)
         {
 
@@ -77,8 +77,15 @@ public class Enemy : PersonScript
 
 
         }
-        else if (shootTimer >= shootTime && melee)
+        else
         {
+            shootTimer++;
+        }
+
+
+
+        if (shootTimer >= shootTime && melee) {
+            
             RaycastHit2D hit;
             if (direction == 1)
             {
@@ -88,19 +95,18 @@ public class Enemy : PersonScript
             {
                 hit = Physics2D.Raycast(shootPoint.position, Vector2.left);
                 Debug.DrawRay(shootPoint.position, Vector2.left, Color.green);
-                print("a");
             }
-            hit = Physics2D.Raycast(shootPoint.position, Vector2.right);
-            if (hit.transform.gameObject.tag == "Player" && Vector3.Distance(this.gameObject.transform.position, hit.transform.position) <= range)
+
+
+            if (hit.transform.gameObject.tag == "Player" && Mathf.Abs(Vector3.Distance(this.gameObject.transform.position, hit.transform.position)) <= range)
             {
-                player.gameObject.GetComponent<CharacterScript2D>().stunned = true;
+                player.gameObject.GetComponent<CharacterScript2D>().GetStunned();
+                Debug.Log("melee test idk");
             }
         }
         else
         {
             shootTimer++;
-            
-
         }
 
         IEnumerator PlayAnim()

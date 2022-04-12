@@ -21663,6 +21663,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6005082622257043068, guid: 7a6e7b654bf74774fb0a2cb6286e31d8, type: 3}
   m_PrefabInstance: {fileID: 4191612040119812021}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7601458404868483541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6005082622257043040, guid: 7a6e7b654bf74774fb0a2cb6286e31d8, type: 3}
+  m_PrefabInstance: {fileID: 4191612040119812021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601458404868483542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87116c1d49dcf6f489fc22c74e96adc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7601458404868483542 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6005082622257043043, guid: 7a6e7b654bf74774fb0a2cb6286e31d8, type: 3}
@@ -21781,6 +21792,10 @@ PrefabInstance:
       propertyPath: HUD
       value: 
       objectReference: {fileID: 7601458404868483542}
+    - target: {fileID: 516547506517121563, guid: 125bddcac040a794287ddca48aaf520e, type: 3}
+      propertyPath: Prog
+      value: 
+      objectReference: {fileID: 7601458404868483541}
     - target: {fileID: 516547506517121563, guid: 125bddcac040a794287ddca48aaf520e, type: 3}
       propertyPath: dashCharges.Array.data[0]
       value: 

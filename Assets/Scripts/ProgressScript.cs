@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
  
 public enum PoliceState
 {
@@ -62,6 +63,7 @@ public class ProgressScript : MonoBehaviour
     }
     public void ResetLevel()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         playerTrans.position = startMark.position;
         policeSlider.value = 0;
         timer.Reset();
@@ -78,9 +80,6 @@ public class ProgressScript : MonoBehaviour
         
         if (progressDifference <= 0)
         {
-            
-            policeSlider.gameObject.SetActive(false);
-            playerSlider.gameObject.SetActive(false);
             siren.SetActive(false);
         }
         if (policeState == PoliceState.Escaped)
@@ -96,7 +95,6 @@ public class ProgressScript : MonoBehaviour
         }
         if (playerTrans.position.x > endMark.position.x)
         {
-            print("a");
             GameObject.Find("LevelStuff").GetComponent<GameManagement>().EndLevel();
         }
     }

@@ -48,8 +48,14 @@ public class CharacterScript2D : MonoBehaviour
     public float stunTimer = 1;
     public bool stunned = false;
     private bool loop = false;
+    public ProgressScript Prog;
 
-    private IEnumerator Stun()
+    public void GetStunned()
+    {
+
+        StartCoroutine(Stun());
+    }
+    public IEnumerator Stun()
     {
         stunned = true;   
         yield return new WaitForSeconds(stunTimer);
@@ -109,6 +115,15 @@ public class CharacterScript2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Prog.ResetLevel();
+        }
+
+        if (rb.velocity.magnitude <= 0.1)
+        {
+            dashing = false;
+        }
         movement = new Vector2(0, 0);
         //Jump
         if (Input.GetKeyDown(KeyCode.W) && isGrounded && Mathf.Abs(rb.velocity.y) <= 1)
@@ -260,7 +275,8 @@ public class CharacterScript2D : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Projectile")
+        dashing = false;
+        if (collision.gameObject.tag == "Projectile")
         {
             Destroy(collision.gameObject);
             StartCoroutine(Stun());
@@ -280,5 +296,7 @@ public class CharacterScript2D : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collistion)
     {
+        
     }
+
 }
