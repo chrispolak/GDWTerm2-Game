@@ -12,6 +12,7 @@ public enum PoliceState
 }
 public class ProgressScript : MonoBehaviour
 {
+    public Timer timer;
     public bool policeActive = true;
     float duration = 1.0f;
     Color color0 = Color.red;
@@ -61,6 +62,7 @@ public class ProgressScript : MonoBehaviour
     {
         playerTrans.position = startMark.position;
         policeSlider.value = 0;
+        timer.Reset();
     }
     // Update is called once per frame
     void Update()
@@ -85,11 +87,15 @@ public class ProgressScript : MonoBehaviour
             policeSlider.gameObject.SetActive(false);
             playerSlider.gameObject.SetActive(false);
             siren.SetActive(false);
-            GameObject.Find("LevelStuff").GetComponent<GameManagement>().EndLevel();
         }
         else if (policeState == PoliceState.Caught)
         {
             ResetLevel();
+        }
+        if (playerTrans.position.x > endMark.position.x)
+        {
+            print("a");
+            GameObject.Find("LevelStuff").GetComponent<GameManagement>().EndLevel();
         }
     }
 }

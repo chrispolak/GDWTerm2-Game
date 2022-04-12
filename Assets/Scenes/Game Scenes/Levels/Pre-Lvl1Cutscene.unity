@@ -428,6 +428,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadScene: Level1
+  time: 0
+  currentTime: 0
 --- !u!1 &1655398356
 GameObject:
   m_ObjectHideFlags: 0

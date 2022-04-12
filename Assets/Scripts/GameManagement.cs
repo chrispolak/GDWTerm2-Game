@@ -17,10 +17,10 @@ public class GameManagement : MonoBehaviour
     public int levelNumber;
     public void EndLevel()
     {
+        SceneManager.LoadScene(nextLevel, LoadSceneMode.Single);
         string[] levelText = File.ReadAllLines(saveDirectory + "\\LevelCompletion");
         levelText[levelNumber - 1] = "1";
         System.IO.File.WriteAllLines(saveDirectory + "\\LevelCompletion", levelText); 
-        SceneManager.LoadScene(nextLevel, LoadSceneMode.Single);
     }
     public void UnlockUnlockable(string unlockable)
     {
