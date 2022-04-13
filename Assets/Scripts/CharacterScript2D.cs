@@ -49,6 +49,7 @@ public class CharacterScript2D : MonoBehaviour
     public bool stunned = false;
     private bool loop = false;
     public ProgressScript Prog;
+    public bool unlimitedDash;
 
     public void GetStunned()
     {
@@ -76,31 +77,30 @@ public class CharacterScript2D : MonoBehaviour
     }
     void DashFunc(Vector3 location)
     {
-        dashStartPos = transform.position;
-        if(location.x <= transform.position.x)
+        if (specDashes > 0 || unlimitedDash)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            facing = -1;
+            audio.PlayOneShot(dashSound);
+            dashStartPos = transform.position;
+            if (location.x <= transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                facing = -1;
+            }
+            if (location.x > transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                facing = 1;
+            }
+            startTime = Time.time;
+            dashing = true;
+            trail.enabled = true;
+            anim.SetTrigger("Attack");
+            specDashes--;
+            dashCharges[specDashes].SetActive(false);
+            //dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
+            //transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+            //rb.position = location;
         }
-        if (location.x > transform.position.x)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            facing = 1;
-        }
-        startTime = Time.time;
-        dashing = true;
-        trail.enabled = true;
-        anim.SetTrigger("Attack");
-        //dashTarget = new Vector3(transform.position.x+dashDistance*direction, transform.position.y, transform.position.z);
-        //transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-        //rb.position = location;
-        if (specDashes > 0)
-        {
-            SpecialDash(location);
-        }
-    }
-    void NormalDash(Vector3 location)
-    {
     }
     void SpecialDash(Vector3 location)
     {
@@ -194,7 +194,6 @@ public class CharacterScript2D : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(1))
         {
-            audio.PlayOneShot(dashSound);
             DashFunc(dashTarget);
             Destroy(targetSprite);
         }
