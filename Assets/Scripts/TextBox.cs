@@ -7,7 +7,7 @@ public class TextBox : MonoBehaviour
 {
     public Text textObj;
     public List<string> textList = new List<string>();
-    int i = 0;
+    public int i = 0;
     public void UpdateText()
     {
         if (i > textList.Count - 1)

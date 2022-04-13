@@ -22,7 +22,14 @@ public class Enemy : PersonScript
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").transform;
-        
+        if (melee)
+        {
+            anim.SetBool("Melee", true);
+        }
+        else
+        {
+            canShoot = true;
+        }
 
 
     }
@@ -35,7 +42,7 @@ public class Enemy : PersonScript
     }
     public void Shoot()
     {
-
+        anim.SetTrigger("Attack");
         if (Aim().x < 0)
         {
 
@@ -72,7 +79,14 @@ public class Enemy : PersonScript
     // Update is called once per frame
     void Update()
     {
-        
+        if(rb.velocity.x != 0)
+        {
+            anim.SetBool("Moving", true);
+        }
+        else
+        {
+            anim.SetBool("Moving", false);
+        }
         Random.InitState((int)Time.time);
         if (Mathf.Abs(Vector3.Distance(this.gameObject.transform.position, player.position)) >= range)
         {
@@ -86,9 +100,6 @@ public class Enemy : PersonScript
             print(shootTimer);
             shootTimer = 0;
             Shoot();
-            StartCoroutine(PlayAnim());
-
-
         }
         else
         {
@@ -98,7 +109,8 @@ public class Enemy : PersonScript
 
 
         if (shootTimer >= shootTime && melee) {
-            
+
+            anim.SetTrigger("Attack");
             RaycastHit2D hit;
             if (direction == 1)
             {
@@ -122,12 +134,6 @@ public class Enemy : PersonScript
             shootTimer++;
         }
 
-        IEnumerator PlayAnim()
-        {
-            anim.SetInteger("Shoot", 1);
-            yield return new WaitForSeconds(1);
-            anim.SetInteger("Shoot", 0);
-        }
 
     }
 }

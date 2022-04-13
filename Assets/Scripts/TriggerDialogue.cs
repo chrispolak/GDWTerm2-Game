@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class TriggerDialogue : EventClass
 {
-    public GameObject textBox;
+    GameObject textBox;
     public List<string> text = new List<string>();
     TextBox textScript;
     public void Awake()
     {
-        textScript = textBox.GetComponent<TextBox>();
+        textScript = GameObject.Find("Text").GetComponent<TextBox>();
     }
     public override void RunEvent()
     {
         if (!textBox.activeSelf)
         {
             textBox.SetActive(true);
-            textScript.textList = text;
-            textScript.UpdateText();
         }
+        textScript.textList = text;
+        textScript.UpdateText();
+        textScript.i = 0;
     }
     void OnTriggerExit2D()
     {
