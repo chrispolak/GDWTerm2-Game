@@ -26,12 +26,6 @@ public class Enemy : PersonScript
         {
             anim.SetBool("Melee", true);
         }
-        else
-        {
-            canShoot = true;
-        }
-
-
     }
     public Vector3 Aim()
     {
@@ -133,7 +127,13 @@ public class Enemy : PersonScript
         {
             shootTimer++;
         }
+    }
 
-
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
+            {
+            rb.velocity = new Vector2(0, 0);
+        }
     }
 }
