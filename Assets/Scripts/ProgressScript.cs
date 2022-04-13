@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
- 
+
 public enum PoliceState
 {
     Safe,
@@ -59,7 +59,7 @@ public class ProgressScript : MonoBehaviour
         {
             policeState = PoliceState.Escaped;
         }
-        
+
     }
     public void ResetLevel()
     {
@@ -71,13 +71,16 @@ public class ProgressScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateSliders();
+        if (policeActive == true)
+        {
+            UpdateSliders();
+        }
         progressDifference = playerSlider.value - policeSlider.value;
         if (policeActive)
         {
             UpdatePoliceState();
         }
-        
+
         if (progressDifference <= 0)
         {
             siren.SetActive(false);
@@ -89,7 +92,7 @@ public class ProgressScript : MonoBehaviour
             playerSlider.gameObject.SetActive(false);
             siren.SetActive(false);
         }
-        else if (policeState == PoliceState.Caught)
+        else if (policeState == PoliceState.Caught && policeActive == true)
         {
             ResetLevel();
         }

@@ -6,10 +6,13 @@ public class CharacterScript2D : MonoBehaviour
 {
 
     public AudioSource audio;
+    public AudioSource gameMusic;
     public AudioClip running;
     public AudioClip attack;
     public AudioClip jump;
     public AudioClip dashSound;
+    public AudioClip gameBGM;
+    public AudioClip loopingBGM;
     public bool hasWeapon = true;
     public int facing = 1;
     private Animator anim;
@@ -58,7 +61,7 @@ public class CharacterScript2D : MonoBehaviour
     }
     public IEnumerator Stun()
     {
-        stunned = true;   
+        stunned = true;
         yield return new WaitForSeconds(stunTimer);
         stunned = false;
 
@@ -74,6 +77,8 @@ public class CharacterScript2D : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         HUD = GameObject.Find("HUD");
+
+        gameMusic.PlayOneShot(gameBGM);
     }
     void DashFunc(Vector3 location)
     {
@@ -115,6 +120,11 @@ public class CharacterScript2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!gameMusic.isPlaying)
+        {
+            gameMusic.PlayOneShot(loopingBGM);
+        }
+
         if (Input.GetKeyDown(KeyCode.L))
         {
             Prog.ResetLevel();
@@ -139,7 +149,7 @@ public class CharacterScript2D : MonoBehaviour
             anim.SetBool("Running", true);
             Move();
         }
-        if(movement.x == 0)
+        if (movement.x == 0)
         {
             anim.SetBool("Running", false);
         }
@@ -190,7 +200,7 @@ public class CharacterScript2D : MonoBehaviour
                 }
             }
             targetSprite.transform.position = dashTarget;
-            
+
         }
         if (Input.GetMouseButtonUp(1))
         {
@@ -215,7 +225,7 @@ public class CharacterScript2D : MonoBehaviour
             audio.PlayOneShot(attack);
             Attack();
         }
-        if(rb.velocity.magnitude == 0)
+        if (rb.velocity.magnitude == 0)
         {
             dashing = false;
         }
@@ -295,7 +305,7 @@ public class CharacterScript2D : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collistion)
     {
-        
+
     }
 
 }
