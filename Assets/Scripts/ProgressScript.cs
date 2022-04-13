@@ -14,7 +14,7 @@ public enum PoliceState
 public class ProgressScript : MonoBehaviour
 {
     public Timer timer;
-    public bool policeActive = true;
+    public bool policeActive = false;
     float duration = 1.0f;
     Color color0 = Color.red;
     Color color1 = Color.blue;
@@ -64,8 +64,8 @@ public class ProgressScript : MonoBehaviour
     public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        playerTrans.position = startMark.position;
-        policeSlider.value = 0;
+        playerTrans.position = new Vector3(startMark.position.x + 5, startMark.position.y, startMark.position.z);
+        policeSlider.value = -0.1f;
         timer.Reset();
     }
     // Update is called once per frame
