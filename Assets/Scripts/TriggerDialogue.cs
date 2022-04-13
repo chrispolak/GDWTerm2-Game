@@ -14,15 +14,15 @@ public class TriggerDialogue : EventClass
     }
     public override void RunEvent()
     {
-        if (!textBox.active)
+        if (!textBox.activeSelf)
         {
             textBox.SetActive(true);
             textScript.textList = text;
             textScript.UpdateText();
         }
     }
-    /*void OnTriggerExit2D()
+    void OnTriggerExit2D()
     {
         this.gameObject.SetActive(false);
-    }*/
+    }
 }

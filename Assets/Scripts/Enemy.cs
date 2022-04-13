@@ -13,7 +13,7 @@ public class Enemy : PersonScript
     public Rigidbody2D rb;
     public float speed = 5;
     public int shootTimer = 0;
-    public int shootTime = 400;
+    public int shootTime = 600;
     int direction = 1;
     public bool melee;
     private Animator anim;
@@ -22,10 +22,7 @@ public class Enemy : PersonScript
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player").transform;
-        if (canShoot)
-        {
-            Shoot();
-        }
+        
 
 
     }
@@ -38,8 +35,23 @@ public class Enemy : PersonScript
     }
     public void Shoot()
     {
+
+        if (Aim().x < 0)
+        {
+
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        direction = (int)Aim().normalized.x;
+
         GameObject firedProjectile = Instantiate(projectile, shootPoint.position, Quaternion.identity);
         firedProjectile.GetComponent<Rigidbody2D>().velocity = Aim() * 10;
+        shootTimer = 0;
+
         
     }
     public void MoveToPlayer()
@@ -60,8 +72,9 @@ public class Enemy : PersonScript
     // Update is called once per frame
     void Update()
     {
+        
         Random.InitState((int)Time.time);
-        if (Vector3.Distance(player.position, this.gameObject.transform.position) >= range)
+        if (Mathf.Abs(Vector3.Distance(this.gameObject.transform.position, player.position)) >= range)
         {
             if (moves)
             {
