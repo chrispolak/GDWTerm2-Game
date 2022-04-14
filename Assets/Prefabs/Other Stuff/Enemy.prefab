@@ -117,8 +117,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.027898788, y: -0.09274566}
-  m_Size: {x: 0.45318985, y: 1.1696985}
+  m_Offset: {x: -0.027898788, y: -0.08123207}
+  m_Size: {x: 0.45318985, y: 1.1466713}
   m_Direction: 0
 --- !u!50 &5932240716567922710
 Rigidbody2D:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alive: 0
-  canShoot: 0
+  canShoot: 1
   projectile: {fileID: 6799312481110275241, guid: 86e57d99c27cc894881d219c0e44c268, type: 3}
   shootPoint: {fileID: 5249158059428377135}
   range: 10
@@ -163,7 +163,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   speed: 5
   shootTimer: 0
-  shootTime: 400
+  shootTime: 800
   melee: 0
 --- !u!95 &4245432438880343949
 Animator:

@@ -101,6 +101,12 @@ public class MenuScript : MonoBehaviour
     }
     private void KonamiCode()
     {
-        print("a");
+        //print("a");
+    }
+
+    public void ExitGame()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }

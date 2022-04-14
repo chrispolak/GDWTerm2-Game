@@ -121,10 +121,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 9086371759700586917}
+  gameMusic: {fileID: 9086371759700586917}
   running: {fileID: 0}
   attack: {fileID: 8300000, guid: cc4cbb91ca46dfe48ac8a16abcad1e29, type: 3}
   jump: {fileID: 8300000, guid: 2f6caa7ca7845f243babfe108a1e3ccb, type: 3}
   dashSound: {fileID: 8300000, guid: 1b0daf5b602ca01409eccb311a5ca88b, type: 3}
+  gameBGM: {fileID: 8300000, guid: b9fd2272660c9814ba32a2558f840a63, type: 3}
+  loopingBGM: {fileID: 8300000, guid: 3c4c2a650b878694baa38ff989df4d03, type: 3}
   hasWeapon: 1
   facing: 1
   specDashes: 3
@@ -150,6 +153,8 @@ MonoBehaviour:
   attackRange: 4
   stunTimer: 1
   stunned: 0
+  Prog: {fileID: 0}
+  unlimitedDash: 0
 --- !u!50 &516547506517121559
 Rigidbody2D:
   serializedVersion: 4

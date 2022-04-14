@@ -28,5 +28,5 @@ public class LevelLoader : MonoBehaviour
         {
             SceneManager.LoadScene(scenePaths[levelNum], LoadSceneMode.Single);
         }
-    }
+    }    
 }
